@@ -129,3 +129,10 @@ body {
   float: right;
   margin: 0 0 10px 0;
 }
+
+#direita {
+  text-align: right;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #646464;
+}

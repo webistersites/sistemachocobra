@@ -36,7 +36,7 @@ b.valor_caixa,
 b.valor_unit,
 b.valor_venda,
 a.quantidade,
-b.valor_venda*a.quantidade as TOTAL
+b.valor_caixa*a.quantidade as TOTAL
 FROM pedido_".$_SESSION['usuarioNome']." a
 INNER JOIN
 	produtos b
@@ -91,10 +91,7 @@ ON
 		 <h2 class="sub-header">Visualização do pedido</h2>
 
 		 <div class="table-responsive">
-		 	<div class="buttons">
-		 		<a href="deletar_pedido.php" class="btn btn-warning">Limpar Lista</a>
-		 		<a href="enviar_pedido.php" class="btn btn-success">Finalizar Pedido</a>
-		 	</div>
+
 		 	<br>
 		 <table class="table table-striped table-bordered">
 			<thead>
@@ -102,29 +99,44 @@ ON
 					<th>ID</th>
 					<th>Nome</th>
 			        <th>R$ Caixa</th>
-			        <th>R$ Unidade</th>
 			        <th>R$ Venda</th>
 					<th>Quantidade</th>
 					<th>TOTAL</th>
-					<th>Ação</th>
+					<th>#</th>
 				</tr>
 			</thead>
 			<?php
+			$subtotal = 0;
 			while($ver=mysql_fetch_array($query)){
 
 				echo "<tr>";
 			    echo "<td>".$ver['id_pedido']."</td>";
 			    echo "<td>".$ver['descricao']."</td>";
-			    echo "<td>".$ver['valor_caixa']."</td>";
-			    echo "<td>".$ver['valor_unit']."</td>";
-			    echo "<td>".$ver['valor_venda']."</td>";
+			    echo "<td>R$ ".number_format($ver['valor_caixa'], 2, ',', '.')."</td>";
+			    echo "<td>R$ ".number_format($ver['valor_venda'], 2, ',', '.')."</td>";
 			    echo "<td>".$ver['quantidade']."</td>";
-			    echo "<td>".$ver['TOTAL']."</td>";
-			    echo "<td><a class='btn btn-danger btn-xs' href='deletar.php?id=".$ver['id_pedido']."'>Excluir</a></td>";
+			    echo "<td><b>R$ ".number_format($ver['TOTAL'], 2, ',', '.')."</b></td>";
+			    echo "<td><a class='btn btn-danger btn-xs' href='deletar.php?id=".$ver['id_pedido']."'>X</a></td>";
 			    echo "</tr>";
+			    $subtotal = $subtotal + $ver['TOTAL'];
 			}
 			?>
 		</table>
+		<?php
+			echo "<h4 id='direita'>SUBTOTAL: &nbsp;&nbsp;<b>R$ ".number_format($subtotal, 2, ',', '.')."</b></h4>";
+		?>
+				<div class="buttons">
+		 		<a href="deletar_pedido.php" class="btn btn-warning">Limpar Lista</a>
+		 		<?php
+		 		if ($subtotal <= 1999) {
+		 			echo "<a href='enviar_pedido.php' class='btn btn-success disabled'>Finalizar Pedido</a>";
+		 		} elseif ($subtotal >= 2000) {
+		 			echo "<a href='detalhes-pedido.php?total=".$subtotal."' class='btn btn-success'>Finalizar Pedido</a>";
+		 		}
+		 		
+		 		?>
+		 	</div>
+
 	</div>
        </div>
 
