@@ -13,7 +13,6 @@ $cabecalho = "header-noPermission.php";
 
 require $cabecalho;
 
-
 	protegePagina(); 
 	$criarTabela = "CREATE TABLE IF NOT exists `pedido_".$_SESSION['usuarioNome']."` (
   `id_pedido` int(10) unsigned NOT NULL AUTO_INCREMENT,
