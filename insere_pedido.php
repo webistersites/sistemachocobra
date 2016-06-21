@@ -11,11 +11,11 @@ $somaId = mysql_result($buscaID,0) + 1;
 $idProduto = mysql_query("SELECT id_produto FROM produtos WHERE descricao = '".$prod."'");
 $idProd = mysql_result($idProduto, 0);
 
-$sql = "insert into pedido_" . $_SESSION['usuarioNome'] . " values('',".$somaId.",$idProd,'$prod','$quantidade','" . $_SESSION['usuarioNome'] . "')";
+$sql = "insert into pedido_" . $_SESSION['usuarioLogin'] . " values('',".$somaId.",$idProd,'$prod','$quantidade','" . $_SESSION['usuarioNome'] . "')";
 
 $resultado = mysql_query($sql);
 
-$foiPedido = mysql_query("UPDATE produtos_".$_SESSION['usuarioNome']." SET foi_pedido = 1 WHERE id_produto = ".$idProd);
+$foiPedido = mysql_query("UPDATE produtos_".$_SESSION['usuarioLogin']." SET foi_pedido = 1 WHERE id_produto = ".$idProd);
 
 echo "Adicionado ao pedido";
 

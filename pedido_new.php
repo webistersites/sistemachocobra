@@ -14,7 +14,7 @@ $cabecalho = "header-noPermission.php";
 require $cabecalho;
 
 	protegePagina(); 
-	$criarTabela = "CREATE TABLE IF NOT exists `pedido_".$_SESSION['usuarioNome']."` (
+	$criarTabela = "CREATE TABLE IF NOT exists `pedido_".$_SESSION['usuarioLogin']."` (
   `id_pedido` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `numero_pedido` int(12) unsigned NOT NULL,
   `produtos_id_produto` int(10) unsigned NOT NULL,
@@ -25,7 +25,7 @@ require $cabecalho;
   KEY `pedido_FKIndex1` (`produtos_id_produto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
-$criarTabela2 = mysql_query("CREATE TABLE produtos_".$_SESSION['usuarioNome']." AS SELECT * FROM produtos;");
+$criarTabela2 = mysql_query("CREATE TABLE produtos_".$_SESSION['usuarioLogin']." AS SELECT * FROM produtos;");
 
 $result = mysql_query($criarTabela);
 
@@ -36,7 +36,7 @@ b.valor_unit,
 b.valor_venda,
 a.quantidade,
 b.valor_caixa*a.quantidade as TOTAL
-FROM pedido_".$_SESSION['usuarioNome']." a
+FROM pedido_".$_SESSION['usuarioLogin']." a
 INNER JOIN
 	produtos b
 ON
@@ -59,7 +59,7 @@ ON
                         <select name="produto" class="form-control">
                             <option class="dropdown">Selecione...</option>
                                 <?php
-                                $produtos = mysql_query("SELECT * FROM produtos_".$_SESSION['usuarioNome']." WHERE foi_pedido = 0");
+                                $produtos = mysql_query("SELECT * FROM produtos_".$_SESSION['usuarioLogin']." WHERE foi_pedido = 0");
                                 while ($lista=mysql_fetch_array($produtos)) {
 
                                 echo "<option value='".$lista['descricao']."'>" . $lista['descricao'] . "</option>";
