@@ -17,11 +17,7 @@ while ($linha = mysql_fetch_array( $buscando )) {
   $quantidadeG = $linha['quantidade'];
 
   // concatena a cada iteração
-  $html .= " 
-     <b>Nome</b> $nomeProdutoG.<br />
-     <b>Quantidade</b> $quantidadeG.<br />
-     <hr />
-   ";
+  $html .= echo "<b>Nome: </b>".$nomeProdutoG;
 
 }
 
@@ -29,7 +25,7 @@ $header = "From: Franqueado\r\n";
 $header .= "MIME-Version: 1.1\r\n";
 $header .= "Content-Type: text/html; charset=iso-8859-1\r\n";
 
-//$envio = mail($destino, $assunto, $html, $headers);
+$envio = mail($destino, $assunto, $html, $headers);
 
 $passarDados = mysql_query("INSERT INTO pedido (numero_pedido,descricao,quantidade,usuario) SELECT numero_pedido,descricao, quantidade, usuario FROM pedido_" . $_SESSION['usuarioLogin']);
 

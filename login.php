@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>Fazer Login | Chocolateria Brasileira</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap-3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
