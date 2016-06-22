@@ -20,13 +20,13 @@ b.valor_unit,
 b.valor_venda,
 a.quantidade,
 b.valor_caixa*a.quantidade as TOTAL
-FROM pedido_".$_SESSION['usuarioNome']." a
+FROM pedido_".$_SESSION['usuarioLogin']." a
 INNER JOIN
 	produtos b
 ON
 	a.produtos_id_produto = b.id_produto");
 
-$nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['usuarioNome']);
+$nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['usuarioLogin']);
 ?>
 
 <script type="text/javascript">
