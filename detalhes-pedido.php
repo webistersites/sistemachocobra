@@ -124,12 +124,12 @@ $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['
 			        <th>R$ Caixa</th>
 			        <th>R$ Venda</th>
 					<th>Quantidade</th>
-					<th>TOTAL</th>
-					
+					<th>TOTAL</th>					
 				</tr>
 			</thead>
 			<?php
 			$subtotal = 0;
+            $ped = mysql_result($nPedido, 0);
 			while($ver=mysql_fetch_array($query)){
 
 				echo "<tr>";
@@ -150,7 +150,7 @@ $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['
 		?>
 		<div class="buttons">
 			<a href="pedido_new.php" class="btn btn-primary">Alterar Pedido</a>
-			<a href="enviar_pedido.php" class="btn btn-success">Confirmar</a>
+			<?php echo "<a href='enviar_pedido_new.php?sub=".$subtotal."' class='btn btn-success'>Confirmar</a>"; ?>
 		</div>
 
         	</div>

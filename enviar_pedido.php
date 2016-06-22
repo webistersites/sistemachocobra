@@ -8,22 +8,20 @@ or die(mysql_error());
 $destino = 'junior@webister.com.br';
 $assunto = 'Pedido de cliente - Teste';
 
-
 $html = ''; // cria variável $html fora do loop
 while ($linha = mysql_fetch_array( $buscando )) {
-
 
   $nomeProdutoG = $linha['descricao'];
   $quantidadeG = $linha['quantidade'];
 
   // concatena a cada iteração
-  $html .= echo "<b>Nome: </b>".$nomeProdutoG;
+  $html .= '<p><b>Produto: </b></p>'.$nomeProdutoG;
 
 }
 
-$header = "From: Franqueado\r\n";
-$header .= "MIME-Version: 1.1\r\n";
-$header .= "Content-Type: text/html; charset=iso-8859-1\r\n";
+$header = "From: Franqueado".'\r\n';
+$header .= "MIME-Version: 1.1".'\r\n';
+$header .= "Content-Type:text/html; charset=UTF-8".'\r\n';
 
 $envio = mail($destino, $assunto, $html, $headers);
 
