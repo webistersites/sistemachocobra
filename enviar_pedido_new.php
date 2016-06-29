@@ -5,6 +5,9 @@ include "seguranca.php";
 $buscando = mysql_query("SELECT id_pedido,descricao,quantidade FROM pedido_".$_SESSION['usuarioLogin'])
 or die(mysql_error());
 
+date_default_timezone_set('America/Sao_Paulo');
+$horario = date('d/m/y');
+
 /* Medida preventiva para evitar que outros dom�nios sejam remetente da sua mensagem. */
 /*if (eregi('tempsite.ws$|chocolateriabrasileira.com.br$|hospedagemdesites.ws$|websiteseguro.com$', $_SERVER[HTTP_HOST])) {
         $emailsender='contato@chocolateriabrasileira.com.br'; // Substitua essa linha pelo seu e-mail@seudominio
@@ -81,14 +84,14 @@ $headers .= "Reply-To: " . $emailremetente . $quebra_linha;
  
 /* Enviando a mensagem */
 
-    mail($emailsender, $assunto, $mensagemHTML2, $headers );
+//    mail($emailsender, $assunto, $mensagemHTML2, $headers );
 
-$passarDados = mysql_query("INSERT INTO pedido (numero_pedido,descricao,quantidade,usuario) SELECT numero_pedido,descricao, quantidade, usuario FROM pedido_" . $_SESSION['usuarioLogin']);
+$passarDados = mysql_query("INSERT INTO pedido (numero_pedido,descricao,quantidade,usuario,data) SELECT numero_pedido,descricao, quantidade, usuario,'".$horario."' FROM pedido_" . $_SESSION['usuarioLogin']);
 
 $droparTabela = mysql_query("drop table pedido_" . $_SESSION['usuarioLogin']);
 $droparTabela2 = mysql_query("drop table produtos_".$_SESSION['usuarioLogin']);
 
     $msg = "Lista Enviada com Sucesso!";
-    echo "<script>location.href='pedido_new.php'; alert('$msg');</script>";
+    echo "<script>location.href='ultimos_pedidos.php'; alert('$msg');</script>";
 
 ?>

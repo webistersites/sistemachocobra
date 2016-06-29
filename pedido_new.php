@@ -88,9 +88,9 @@ ON
 		 <br>
 
 		 <h2 class="sub-header">Visualização do pedido</h2>
-
+		 
 		 <div class="table-responsive">
-
+<div class="buttons"><a href="ultimos_pedidos.php" class="btn btn-default">Pedidos Anteriores</a></div>
 		 	<br>
 		 <table class="table table-striped table-bordered">
 			<thead>
