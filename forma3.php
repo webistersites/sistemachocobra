@@ -4,7 +4,7 @@
     <div class="radio">
       <label><input type="radio" name="optradio" value="21 ddl">21 ddl</label>
     </div>
-    <div class="radio disabled">
+    <div class="radio">
       <label><input type="radio" name="optradio" value="21/35 ddl">21/35 ddl</label>
     </div>
     <div class="radio">
