@@ -34,7 +34,8 @@ $query = mysql_query("select
     b.valor_caixa,
     b.valor_venda,
     a.quantidade,
-    a.quantidade*b.valor_caixa as TOTAL
+    a.quantidade*b.valor_caixa as TOTAL,
+    a.prazo
 FROM 
 	pedido a
 INNER JOIN
@@ -51,7 +52,8 @@ $query2 = mysql_query("select
     b.valor_caixa,
     b.valor_venda,
     a.quantidade,
-    a.quantidade*b.valor_caixa as TOTAL
+    a.quantidade*b.valor_caixa as TOTAL,
+    a.prazo
 FROM 
 	pedido a
 INNER JOIN
@@ -68,7 +70,8 @@ $query3 = mysql_query("select
     b.valor_caixa,
     b.valor_venda,
     a.quantidade,
-    a.quantidade*b.valor_caixa as TOTAL
+    a.quantidade*b.valor_caixa as TOTAL,
+    a.prazo
 FROM 
 	pedido a
 INNER JOIN
@@ -123,6 +126,27 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
         				?>
         			</td>
         		</tr>
+        		<tr>
+        			<td>
+        				<b>Prazo: ......................</b>
+        			</td>
+        			<td>
+        				<?php 
+        					$buscaprazo = mysql_query("
+        						select 
+									prazo 
+								from 
+									pedido 
+								WHERE
+									usuario = '".$_SESSION['usuarioNome']."'
+								AND
+									numero_pedido = (select max(numero_pedido) from pedido where usuario='".$_SESSION['usuarioNome']."');
+									");
+        					$prz = mysql_result($buscaprazo, 0);
+        					echo "$prz";
+        				?>
+        			</td>
+        		</tr>
         	</table>
         	<br>
 		 <table class="table table-striped table-bordered">
@@ -136,7 +160,6 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
 				</tr>
 			</thead>
 			<?php
-			$subtotal = 0;
 			while($ver=mysql_fetch_array($query)){
 
 				echo "<tr>";
@@ -147,7 +170,11 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
 			    echo "<td><b>R$ ".number_format($ver['TOTAL'], 2, ',', '.')."</b></td>";
 			    echo "</tr>";
 			    $subtotal = $subtotal + $ver['TOTAL'];
+			    if ($ver['prazo'] == "a vista") {
+			    	$subtotal = $subtotal*0.95;
+			    }
 			}
+
 			?>
 		</table>
 		<?php
@@ -177,6 +204,31 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
         				?>
         			</td>
         		</tr>
+        		        		<tr>
+        			<td>
+        				<b>Prazo: ......................</b>
+        			</td>
+        			<td>
+        				<?php 
+        					$buscaprazo = mysql_query("
+        						select 
+									prazo 
+								from 
+									pedido 
+								WHERE
+									usuario = '".$_SESSION['usuarioNome']."'
+								AND
+									numero_pedido = (select max(numero_pedido)-1 from pedido where usuario='".$_SESSION['usuarioNome']."');
+									");
+								if (!mysql_num_rows($buscaprazo) || mysql_result($buscaprazo, 0) == "") {
+								    echo ('NoData');
+								} else {
+        					$prz = mysql_result($buscaprazo, 0);
+        					echo "$prz";
+        					}
+        				?>
+        			</td>
+        		</tr>
         	</table>
         	<br>
 		 <table class="table table-striped table-bordered">
@@ -201,6 +253,9 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
 			    echo "<td><b>R$ ".number_format($ver['TOTAL'], 2, ',', '.')."</b></td>";
 			    echo "</tr>";
 			    $subtotal = $subtotal + $ver['TOTAL'];
+    			    if ($ver['prazo'] == "a vista") {
+			    	$subtotal = $subtotal*0.95;
+			    }
 			}
 			?>
 		</table>
@@ -231,6 +286,31 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
         				?>
         			</td>
         		</tr>
+        		        		<tr>
+        			<td>
+        				<b>Prazo: ......................</b>
+        			</td>
+        			<td>
+        				<?php 
+        					$buscaprazo = mysql_query("
+        						select 
+									prazo 
+								from 
+									pedido 
+								WHERE
+									usuario = '".$_SESSION['usuarioNome']."'
+								AND
+									numero_pedido = (select max(numero_pedido)-2 from pedido where usuario='".$_SESSION['usuarioNome']."');
+									");
+								if (!mysql_num_rows($buscaprazo)) {
+								    echo ('NoData');
+								} else {
+        					$prz = mysql_result($buscaprazo, 0);
+        					echo "$prz";
+        					}
+        				?>
+        			</td>
+        		</tr>
         	</table>
         	<br>
 		 <table class="table table-striped table-bordered">
@@ -255,6 +335,9 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
 			    echo "<td><b>R$ ".number_format($ver['TOTAL'], 2, ',', '.')."</b></td>";
 			    echo "</tr>";
 			    $subtotal = $subtotal + $ver['TOTAL'];
+    			    if ($ver['prazo'] == "a vista") {
+			    	$subtotal = $subtotal*0.95;
+			    }
 			}
 			?>
 		</table>

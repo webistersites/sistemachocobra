@@ -37,12 +37,15 @@ $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['
 $ped = mysql_result($nPedido, 0);
 
 $subtotal = $_GET['sub'];
+$prazoPag = $_GET['prazo'];
 
 $mensagemHTML2 =   
         '<p>
             Pedido: ..........#'.$ped.'
             <br>
             Usuario: ..........'.$_SESSION['usuarioNome'].'
+            <br>
+            Prazo Pagamento: ...'.$prazoPag.'
         </p>
         <table border="1">
             <thead>
@@ -86,7 +89,7 @@ $headers .= "Reply-To: " . $emailremetente . $quebra_linha;
 
 //    mail($emailsender, $assunto, $mensagemHTML2, $headers );
 
-$passarDados = mysql_query("INSERT INTO pedido (numero_pedido,descricao,quantidade,usuario,data) SELECT numero_pedido,descricao, quantidade, usuario,'".$horario."' FROM pedido_" . $_SESSION['usuarioLogin']);
+$passarDados = mysql_query("INSERT INTO pedido (numero_pedido,descricao,quantidade,usuario,data,prazo,subtotal) SELECT numero_pedido,descricao, quantidade, usuario,'".$horario."','".$prazoPag."',".$subtotal." FROM pedido_" . $_SESSION['usuarioLogin']);
 
 $droparTabela = mysql_query("drop table pedido_" . $_SESSION['usuarioLogin']);
 $droparTabela2 = mysql_query("drop table produtos_".$_SESSION['usuarioLogin']);

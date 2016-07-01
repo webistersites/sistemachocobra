@@ -83,32 +83,20 @@ $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['
                 <tr>
                     <td colspan="2">
                         <br>
-                        <b>Prazo de Pagamento:</b>
+                        <b>Prazo de Pagamento:</b> <?php $prazo = $_POST['optradio']; echo "$prazo"; ?>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div class="radio">
-                          <label><input type="radio" name="optradio" checked="checked">À vista - 5% de desconto</label>
-                        </div>
                         <?php
 
-                            if ($tot <= 3999) {
-                                include("forma1.php");
-                            }
-                            elseif ($tot >= 4000 and $tot <= 5999) {
-                                include("forma2.php");
-                            }
-                            elseif ($tot >= 6000 and $tot <= 7999) {
-                                include("forma3.php");
-                            }
-                            elseif ($tot >= 8000) {
-                                include("forma4.php");
-                            }
-                
+                        do {
+                            include "prazo.php";
+                            $count++;
+                            $prazo = $_POST['optradio'];
+                        } while ($prazo == " " && $count < 0);
+
                         ?>
-                    </td>
-                    <td>
                     </td>
                 </tr>
         	</table>
@@ -146,11 +134,27 @@ $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['
 			?>
 		</table>
 		<?php
-			echo "<h4 id='direita'>SUBTOTAL: &nbsp;&nbsp;<b>R$ ".number_format($subtotal, 2, ',', '.')."</b></h4>";
+            if ($prazo <> "a vista") {
+                echo "<h4 id='direita'>SUBTOTAL: &nbsp;&nbsp;<b>R$ ".number_format($subtotal, 2, ',', '.')."</b></h4>";
+            }
+            elseif ($prazo == "a vista") {
+                $subtotal = $subtotal*0.95;
+                echo "<h4 id='direita'>SUBTOTAL: &nbsp;&nbsp;<b>R$ ".number_format($subtotal, 2, ',', '.')."</b></h4>";
+            }
+			
 		?>
 		<div class="buttons">
 			<a href="pedido_new.php" class="btn btn-primary">Alterar Pedido</a>
-			<?php echo "<a href='enviar_pedido_new.php?sub=".$subtotal."' class='btn btn-success'>Confirmar</a>"; ?>
+			<?php
+                $prazo = $_POST['optradio']; 
+                if ($prazo == "") {
+                    echo "<a href='enviar_pedido_new.php?sub=".$subtotal."&prazo=".$prazo."' class='btn btn-success disabled'>Confirmar</a>";
+                }
+                elseif ($prazo <> "") {
+                    echo "<a href='enviar_pedido_new.php?sub=".$subtotal."&prazo=".$prazo."' class='btn btn-success'>Confirmar</a>";
+                }
+
+                 ?>
 		</div>
 
         	</div>
