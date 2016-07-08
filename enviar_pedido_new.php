@@ -17,9 +17,12 @@ $horario = date('d/m/y');
         // Voc� pode alterar para que o remetente seja, por exemplo, 'contato@seudominio'.
 }*/
 
+$nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['usuarioLogin']);
+$ped = mysql_result($nPedido, 0);
+
 $emailsender = 'junior@webister.com.br';
 $emailremetente = 'junior@webister.com.br';
-$assunto = 'Novo pedido efetuado';
+$assunto = 'Novo pedido efetuado - Pedido #'.$ped.' ('.$_SESSION['usuarioNome'].') ';
  
 /* Verifica qual �o sistema operacional do servidor para ajustar o cabe�alho de forma correta.  */
 if(PATH_SEPARATOR == ";") $quebra_linha = "\r\n"; //Se for Windows
@@ -33,9 +36,6 @@ $mensagemHTML = '<P>Contato realizado atraves do Site.</P>
 <p><b>Mensagem: </b></p>
 <hr>';
 
-$nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['usuarioLogin']);
-$ped = mysql_result($nPedido, 0);
-
 $subtotal = $_GET['sub'];
 $prazoPag = $_GET['prazo'];
 
@@ -46,6 +46,8 @@ $mensagemHTML2 =
             Usuario: ..........'.$_SESSION['usuarioNome'].'
             <br>
             Prazo Pagamento: ...'.$prazoPag.'
+            <br>
+            Subtotal: ..........'.number_format($subtotal,2,',','.').'
         </p>
         <table border="1">
             <thead>
@@ -87,7 +89,7 @@ $headers .= "Reply-To: " . $emailremetente . $quebra_linha;
  
 /* Enviando a mensagem */
 
-//    mail($emailsender, $assunto, $mensagemHTML2, $headers );
+    mail($emailsender, $assunto, $mensagemHTML2, $headers );
 
 $passarDados = mysql_query("INSERT INTO pedido (numero_pedido,descricao,quantidade,usuario,data,prazo,subtotal) SELECT numero_pedido,descricao, quantidade, usuario,'".$horario."','".$prazoPag."',".$subtotal." FROM pedido_" . $_SESSION['usuarioLogin']);
 
