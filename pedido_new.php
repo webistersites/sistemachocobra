@@ -32,8 +32,7 @@ $result = mysql_query($criarTabela);
 $query = mysql_query("select a.id_pedido,
 a.descricao,
 b.valor_caixa,
-b.valor_unit,
-b.valor_venda,
+b.valor_unitario,
 a.quantidade,
 b.valor_caixa*a.quantidade as TOTAL
 FROM pedido_".$_SESSION['usuarioLogin']." a
@@ -98,7 +97,7 @@ ON
 					<th>ID</th>
 					<th>Nome</th>
 			        <th>R$ Caixa</th>
-			        <th>R$ Venda</th>
+			        <th>R$ Unitário</th>
 					<th>Quantidade</th>
 					<th>TOTAL</th>
 					<th>#</th>
@@ -112,7 +111,7 @@ ON
 			    echo "<td>".$ver['id_pedido']."</td>";
 			    echo "<td>".$ver['descricao']."</td>";
 			    echo "<td>R$ ".number_format($ver['valor_caixa'], 2, ',', '.')."</td>";
-			    echo "<td>R$ ".number_format($ver['valor_venda'], 2, ',', '.')."</td>";
+			    echo "<td>R$ ".number_format($ver['valor_unitario'], 2, ',', '.')."</td>";
 			    echo "<td>".$ver['quantidade']."</td>";
 			    echo "<td><b>R$ ".number_format($ver['TOTAL'], 2, ',', '.')."</b></td>";
 			    echo "<td><a class='btn btn-danger btn-xs' href='deletar.php?id=".$ver['id_pedido']."'>X</a></td>";
@@ -127,9 +126,9 @@ ON
 				<div class="buttons">
 		 		<a href="deletar_pedido.php" class="btn btn-warning">Limpar Lista</a>
 		 		<?php
-		 		if ($subtotal <= 1999) {
+		 		if ($subtotal <= 2999) {
 		 			echo "<a href='enviar_pedido.php' class='btn btn-success disabled'>Finalizar Pedido</a>";
-		 		} elseif ($subtotal >= 2000) {
+		 		} elseif ($subtotal >= 3000) {
 		 			echo "<a href='detalhes-pedido.php?total=".$subtotal."' class='btn btn-success'>Finalizar Pedido</a>";
 		 		}
 		 		

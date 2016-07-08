@@ -32,21 +32,15 @@ $produto = mysql_query("SELECT * FROM produtos");
 	              </div>
 	          </div>
 	          <div class="form-group">
-	              <label for="qtdCaixa" class="col-sm-2 control-label">Qtd Caixa</label>
-	              <div class="col-sm-3">
-	                <input class="form-control" type="text" placeholder="Qtd Caixa" id="qtdCaixa" name="qtdCaixa">
-	              </div>
-	          </div>
-	          <div class="form-group">
 	              <label for="valorCaixa" class="col-sm-2 control-label">R$ Caixa</label>
 	              <div class="col-sm-3">
-	                <input class="form-control" type="text" placeholder="Preço da caixa" id="valorCaixa" name="valorCaixa">
+	                <input class="form-control" type="text" placeholder="Valor da Caixa" id="valorCaixa" name="valorCaixa">
 	              </div>
 	          </div>
 	          <div class="form-group">
-	              <label for="valorVenda" class="col-sm-2 control-label">R$ Venda</label>
+	              <label for="valorUnitario" class="col-sm-2 control-label">R$ Unitário</label>
 	              <div class="col-sm-3">
-	                <input class="form-control" type="text" placeholder="Preço de venda" id="valorVenda" name="valorVenda">
+	                <input class="form-control" type="text" placeholder="Valor Unitário" id="valorUnitario" name="valorUnitario">
 	              </div>
 	          </div>
 				  <div class="form-group">
@@ -64,9 +58,8 @@ $produto = mysql_query("SELECT * FROM produtos");
 					<tr>
 						<th>ID</th>
 						<th>Produto</th>
-				        <th>Qtd por Caixa</th>
 				        <th>Valor da Caixa</th>
-						<th>Valor de Venda</th>
+						<th>Valor Unitário</th>
 						<th>Excluir</th>
 					</tr>
 				</thead>
@@ -75,9 +68,8 @@ $produto = mysql_query("SELECT * FROM produtos");
 						echo "<tr>";
 						echo "<td>".$ver['id_produto']."</td>";
 						echo "<td>".$ver['descricao']."</td>";
-						echo "<td>".$ver['qtd_caixa']."</td>";
 						echo "<td>".$ver['valor_caixa']."</td>";
-						echo "<td>".$ver['valor_venda']."</td>";
+						echo "<td>".$ver['valor_unitario']."</td>";
 						echo "<td><a class='btn btn-danger btn-xs' href='del_produto.php?id=".$ver['id_produto']."'>X</a></td>";
 					}
 				?>

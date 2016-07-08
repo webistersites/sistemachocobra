@@ -32,7 +32,7 @@ $result = mysql_query($criarTabela);
 $query = mysql_query("select 
     a.descricao,
     b.valor_caixa,
-    b.valor_venda,
+    b.valor_unitario,
     a.quantidade,
     a.quantidade*b.valor_caixa as TOTAL,
     a.prazo
@@ -50,7 +50,7 @@ AND
 $query2 = mysql_query("select 
     a.descricao,
     b.valor_caixa,
-    b.valor_venda,
+    b.valor_unitario,
     a.quantidade,
     a.quantidade*b.valor_caixa as TOTAL,
     a.prazo
@@ -68,7 +68,7 @@ AND
 $query3 = mysql_query("select 
     a.descricao,
     b.valor_caixa,
-    b.valor_venda,
+    b.valor_unitario,
     a.quantidade,
     a.quantidade*b.valor_caixa as TOTAL,
     a.prazo
@@ -118,16 +118,6 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
         		</tr>
         		<tr>
         			<td>
-        				<b>Usuário: ..................</b>
-        			</td>
-        			<td>
-        				<?php
-        					echo $_SESSION['usuarioNome'];
-        				?>
-        			</td>
-        		</tr>
-        		<tr>
-        			<td>
         				<b>Prazo: ......................</b>
         			</td>
         			<td>
@@ -142,8 +132,12 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
 								AND
 									numero_pedido = (select max(numero_pedido) from pedido where usuario='".$_SESSION['usuarioNome']."');
 									");
+        					if (!mysql_num_rows($buscaprazo) || mysql_result($buscaprazo, 0) == "") {
+								    echo ('NoData');
+								} else {
         					$prz = mysql_result($buscaprazo, 0);
         					echo "$prz";
+        					}
         				?>
         			</td>
         		</tr>
@@ -154,7 +148,7 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
 				<tr>
 					<th>Produto</th>
 			        <th>R$ Caixa</th>
-			        <th>R$ Venda</th>
+			        <th>R$ Unitário</th>
 					<th>Quantidade</th>
 					<th>TOTAL</th>
 				</tr>
@@ -165,7 +159,7 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
 				echo "<tr>";
 			    echo "<td>".$ver['descricao']."</td>";
 			    echo "<td>R$ ".number_format($ver['valor_caixa'], 2, ',', '.')."</td>";
-			    echo "<td>R$ ".number_format($ver['valor_venda'], 2, ',', '.')."</td>";
+			    echo "<td>R$ ".number_format($ver['valor_unitario'], 2, ',', '.')."</td>";
 			    echo "<td>".$ver['quantidade']."</td>";
 			    echo "<td><b>R$ ".number_format($ver['TOTAL'], 2, ',', '.')."</b></td>";
 			    echo "</tr>";
@@ -195,16 +189,6 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
 					</td>
         		</tr>
         		<tr>
-        			<td>
-        				<b>Usuário: ..................</b>
-        			</td>
-        			<td>
-        				<?php
-        					echo $_SESSION['usuarioNome'];
-        				?>
-        			</td>
-        		</tr>
-        		        		<tr>
         			<td>
         				<b>Prazo: ......................</b>
         			</td>
@@ -276,17 +260,7 @@ $ult_pedido3 = mysql_query("select max(numero_pedido) as NPedido,`data` from ped
 						?>
 					</td>
         		</tr>
-        		<tr>
-        			<td>
-        				<b>Usuário: ..................</b>
-        			</td>
-        			<td>
-        				<?php
-        					echo $_SESSION['usuarioNome'];
-        				?>
-        			</td>
-        		</tr>
-        		        		<tr>
+	        		<tr>
         			<td>
         				<b>Prazo: ......................</b>
         			</td>

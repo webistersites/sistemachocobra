@@ -89,9 +89,9 @@ $headers .= "Reply-To: " . $emailremetente . $quebra_linha;
  
 /* Enviando a mensagem */
 
-    mail($emailsender, $assunto, $mensagemHTML2, $headers );
+ //mail($emailsender, $assunto, $mensagemHTML2, $headers );
 
-$passarDados = mysql_query("INSERT INTO pedido (numero_pedido,descricao,quantidade,usuario,data,prazo,subtotal) SELECT numero_pedido,descricao, quantidade, usuario,'".$horario."','".$prazoPag."',".$subtotal." FROM pedido_" . $_SESSION['usuarioLogin']);
+$passarDados = mysql_query("INSERT INTO pedido (numero_pedido,descricao,quantidade,usuario,data,prazo) SELECT numero_pedido,descricao, quantidade, usuario,'".$horario."','".$prazoPag."' FROM pedido_" . $_SESSION['usuarioLogin']);
 
 $droparTabela = mysql_query("drop table pedido_" . $_SESSION['usuarioLogin']);
 $droparTabela2 = mysql_query("drop table produtos_".$_SESSION['usuarioLogin']);

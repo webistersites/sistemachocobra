@@ -3,11 +3,10 @@ include "conectar_banco.php";
 include "seguranca.php";
 
 $produto = $_POST['cDescricao'];
-$qtd_caixa = $_POST['qtdCaixa'];
 $valor_caixa = $_POST['valorCaixa'];
-$valor_venda = $_POST['valorVenda'];
+$valor_unitario = $_POST['valorUnitario'];
 
-$sql = mysql_query("insert into produtos values('','$produto',$qtd_caixa,$valor_caixa,0,$valor_venda,'Barras',0)");
+$sql = mysql_query("insert into produtos values('','$produto',$valor_unitario,$valor_caixa,0)");
 
 echo "Cadastrando Produto";
 

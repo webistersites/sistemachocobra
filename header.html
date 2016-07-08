@@ -58,7 +58,12 @@
             <li><a href="#">Ajuda</a></li>
           </ul>          
           <form class="navbar-form navbar-right">
-            <span class="greetings">Olá <?php echo $_SESSION['usuarioNome']; ?>,<a href="logout.php"> sair</a></span>
+            <span class="greetings">Olá 
+              <?php 
+                $user = $_SESSION['usuarioLogin']; 
+                echo $_SESSION['usuarioNome'].", <a href='logout.php?user=".$user."'>sair</a>"; 
+              ?>
+              </span>
             <input type="text" class="form-control" placeholder="Pesquisar...">
           </form>
 

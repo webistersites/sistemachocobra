@@ -16,15 +16,14 @@ require $cabecalho;
 $query = mysql_query("select a.id_pedido,
 a.descricao,
 b.valor_caixa,
-b.valor_unit,
-b.valor_venda,
+b.valor_unitario,
 a.quantidade,
 b.valor_caixa*a.quantidade as TOTAL
 FROM pedido_".$_SESSION['usuarioLogin']." a
 INNER JOIN
-	produtos b
+    produtos b
 ON
-	a.produtos_id_produto = b.id_produto");
+    a.produtos_id_produto = b.id_produto");
 
 $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['usuarioLogin']);
 ?>
@@ -110,7 +109,7 @@ $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['
 					<th>ID</th>
 					<th>Nome</th>
 			        <th>R$ Caixa</th>
-			        <th>R$ Venda</th>
+			        <th>R$ Unitário</th>
 					<th>Quantidade</th>
 					<th>TOTAL</th>					
 				</tr>
@@ -124,7 +123,7 @@ $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['
 			    echo "<td>".$ver['id_pedido']."</td>";
 			    echo "<td>".$ver['descricao']."</td>";
 			    echo "<td>R$ ".number_format($ver['valor_caixa'], 2, ',', '.')."</td>";
-			    echo "<td>R$ ".number_format($ver['valor_venda'], 2, ',', '.')."</td>";
+			    echo "<td>R$ ".number_format($ver['valor_unitario'], 2, ',', '.')."</td>";
 			    echo "<td>".$ver['quantidade']."</td>";
 			    echo "<td><b>R$ ".number_format($ver['TOTAL'], 2, ',', '.')."</b></td>";
 
