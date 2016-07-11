@@ -2,6 +2,8 @@ body {
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #222;
+  background: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3)), url("_img/background4.png") no-repeat center;
+  background-size: 100%;
 }
 
 .form-signin {
@@ -38,6 +40,10 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.form-signin a {
+  color: #ccc;
 }
 
 .imagem img {

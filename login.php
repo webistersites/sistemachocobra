@@ -35,7 +35,7 @@
 
     <div class="container">
         <div class="imagem">
-          <img src="_img/logo_final_2016_peq.png" class="img-responsive">
+          <img src="_img/logo_final_2016_peq_fundo.png" class="img-responsive">
         </div>
       <form class="form-signin" method="post" action="valida.php">
         <h2 class="form-signin-heading">Fazer Login</h2>

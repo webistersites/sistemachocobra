@@ -65,7 +65,7 @@ while ($linha = mysql_fetch_array( $buscando )) {
   // concatena a cada iteração
   $mensagemHTML2 .= '
             <tr>
-                <td>'.$nomeProdutoG.'</td>
+                <td>'.utf8_encode($nomeProdutoG).'</td>
                 <td align="center">'.$quantidadeG.'</td>
             </tr>'
   ;
@@ -79,7 +79,7 @@ Este e-mail foi enviado atraves do sistema de pedidos em Chocolateria Brasileira
  
 /* Montando o cabeçalho da mensagem */
 $headers = "MIME-Version: 1.1" .$quebra_linha;
-$headers .= "Content-type: text/html; charset=iso-8859-1" .$quebra_linha;
+$headers .= "Content-type: text/html; charset=UTF-8" .$quebra_linha;
 // Perceba que a linha acima cont�m "text/html", sem essa linha, a mensagem n�o chegar� formatada.
 $headers .= "From: " . $emailsender.$quebra_linha;
 //$headers .= "Cc: " . $comcopia . $quebra_linha;
