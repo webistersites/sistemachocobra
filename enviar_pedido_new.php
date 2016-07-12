@@ -38,6 +38,7 @@ $mensagemHTML = '<P>Contato realizado atraves do Site.</P>
 
 $subtotal = $_GET['sub'];
 $prazoPag = $_GET['prazo'];
+$obs = $_GET['msg'];
 
 $mensagemHTML2 =   
         '<p>
@@ -48,6 +49,10 @@ $mensagemHTML2 =
             Prazo Pagamento: ...'.$prazoPag.'
             <br>
             Subtotal: ..........'.number_format($subtotal,2,',','.').'
+            <br>
+            Observação: 
+            <br>
+            <i>'.$obs.'</i>
         </p>
         <table border="1">
             <thead>

@@ -68,37 +68,37 @@ $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['
         				?>
         			</td>
         		</tr>
-        		<tr>
-        			<td>
-        				<b>Valor do Pedido: </b>
-        			</td>
-        			<td>
-        				<?php 
-        					$tot = $_GET['total']; // Recebendo o valor enviado pelo link
-        					echo "R$ ".number_format($tot, 2, ',', '.'); 
-        				?>
-        			</td>
-        		</tr>
                 <tr>
                     <td colspan="2">
-                        <br>
-                        <b>Prazo de Pagamento:</b> <?php $prazo = $_POST['optradio']; echo "$prazo"; ?>
+                        <b>Prazo de Pagamento:</b> 
+                        <?php 
+                            $prazo = $_POST['optradio']; 
+                            if ($prazo == '') {
+                                echo "<small><i> --</i></small>";
+                            }
+                            echo "$prazo"; 
+                        ?>
                     </td>
                 </tr>
                 <tr>
                     <td>
+                        <br>
                         <?php
-
-                        do {
-                            include "prazo.php";
-                            $count++;
-                            $prazo = $_POST['optradio'];
-                        } while ($prazo == " " && $count < 0);
-
+                            if ($prazo == '') {
+                                 echo '<a href="#popup1" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"> </span> Selecionar Condições</a>';
+                             }
+                             elseif ($prazo <> '') {
+                                 echo '<a href="#popup1" class="btn btn-info btn-xs disabled"><span class="glyphicon glyphicon-pencil"> </span> Selecionar Condições</a>';
+                             }
+                              
                         ?>
+                    </td>
+                    <td>
+                        <?php include "prazo.php"; ?>
                     </td>
                 </tr>
         	</table>
+            <?php $msg = $_POST['msg'];?>
         	<br>
         	<h2 class="sub-header">Pedido <?php echo "#".mysql_result($nPedido, 0);?></h2>
 
@@ -150,7 +150,7 @@ $nPedido = mysql_query("select distinct(numero_pedido) from pedido_".$_SESSION['
                     echo "<a href='enviar_pedido_new.php?sub=".$subtotal."&prazo=".$prazo."' class='btn btn-success disabled'>Confirmar</a>";
                 }
                 elseif ($prazo <> "") {
-                    echo "<a href='enviar_pedido_new.php?sub=".$subtotal."&prazo=".$prazo."' class='btn btn-success'>Confirmar</a>";
+                    echo "<a href='enviar_pedido_new.php?sub=".$subtotal."&prazo=".$prazo."&msg=".$msg."' class='btn btn-success'>Confirmar</a>";
                 }
 
                  ?>

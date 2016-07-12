@@ -1,3 +1,6 @@
+<table border="0">
+  <tr>
+    <td width="60%">
     <div class="radio">
       <label><input type="radio" name="optradio" value="14/28 ddl">14/28 ddl</label>
     </div>
@@ -16,6 +19,8 @@
     <div class="radio">
       <label><input type="radio" name="optradio" value="35 ddl">35 ddl</label>
     </div>
+  </td>
+  <td>
     <div class="radio">
       <label><input type="radio" name="optradio" value="21/35/42/49 ddl">21/35/42/49 ddl</label>
     </div>
@@ -31,3 +36,7 @@
     <div class="radio">
       <label><input type="radio" name="optradio" value="28/42/56 ddl">28/42/56 ddl</label>
     </div>
+    <br>
+  </td>
+  </tr>
+    </table>
